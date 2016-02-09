@@ -10,7 +10,7 @@ $(document).ready(function() {
     $(".public_gists").html(data.public_gists);
     $(".private_gists").html(data.private_gists);
     $(".location").html(data.location);
-
+    $(".avatar").attr("src", data.avatar_url);
     console.log(data);
 
 
