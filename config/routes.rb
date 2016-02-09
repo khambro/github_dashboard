@@ -3,7 +3,8 @@ Rails.application.routes.draw do
   root to: "users#index"
 
 
-  get "/dashboard", to: "users#show", as: :dashboard
+  get "/user/info", to: "users#show"
+  get "/dashboard", to: "users#dashboard", as: :dashboard
 
   # root to: "chart#index"
 
