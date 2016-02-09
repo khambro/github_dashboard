@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   get "/user/info", to: "users#show"
   get "/dashboard", to: "users#dashboard", as: :dashboard
+  get "/repos", to: "users#repos"
 
   # root to: "chart#index"
 
