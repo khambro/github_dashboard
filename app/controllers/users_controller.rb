@@ -14,6 +14,13 @@ class UsersController < ApplicationController
     render json: @repos.reverse
   end
 
+  def languages
+    @repos = HTTParty.get("https://api.github.com/users/#{current_user.username}/repos?access_token=#{current_user.token}")
+    @languages = @repos.group_by {|repo| repo["language"]}
+    render json: @languages
+  end
+
+
   def dashboard
   end
 

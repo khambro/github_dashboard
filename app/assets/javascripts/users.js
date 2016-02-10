@@ -11,7 +11,7 @@ $(document).ready(function() {
     $(".private_gists").html(data.private_gists);
     $(".location").html(data.location);
     $(".avatar").attr("src", data.avatar_url);
-    console.log(data);
+    // console.log(data);
 
 
   });
@@ -19,39 +19,40 @@ $(document).ready(function() {
 
 
   $.get("/repos", function(repos) {
-      console.log(repos[5]["name"]);
+      console.log(repos[5]);
       for (var i = 0; i < 10; i++) {
         var repo = $("<div>");
-        var title = $("<h1>");
-        var site = $("<h2>");
+        var title = $("<h3>");
+        var site = $("<a href>");
         repo.append(title);
         repo.append(site);
         var name = repos[i]["name"];
-        var url  = repos[i]["url"];
+        var url  = repos[i]["clone_url"];
         var language = repos[i]["language"];
         title.text(name);
         site.text(url)
-        console.log(url)
-        console.log(name)
-        console.log(language)
+        // text.link('href', url);
+        // site.write('Your Title'.link(url));
+        // console.log(url)
+        // console.log(name)
+        // console.log(language)
         $("#repo-container").append(repo);
       };
 
-      // console.log(repos);
+
   });
 
 
-  $.get("/user/info", function(response) {
-    console.log(response);
+  $.get("/languages", function(languages) {
+    
 
-    for (var i = 0; i < response.length; i++) {
-      response[i].name = response[i].flavor;
-      response[i].y    = response[i].votes;
-    }
+    var arr = []
+    for (var key in languages) {
+      arr.push({name: key, y: languages[key].length})
+    };
 
-    // var pieData = response.map(function(pie) {
-    //   return {name: pie.flavor, y: pie.votes};
-    // });
+    console.log(arr);
+
 
     $("#chart-container").highcharts({
       chart: {
@@ -61,8 +62,8 @@ $(document).ready(function() {
         text: "Languages Used"
       },
       series: [{
-        name: "Pies",
-        data: response
+        name: "Languages",
+        data: arr
       }]
     });
 
