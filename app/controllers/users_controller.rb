@@ -20,6 +20,20 @@ class UsersController < ApplicationController
     render json: @languages
   end
 
+  def gists
+    # @gists = HTTParty.get("https://api.github.com/users/#{current_user.username}/gists?access_token=#{current_user.token}")
+    @gists = HTTParty.get("https://api.github.com/users/bookis/gists")
+    render json: @gists
+  end
+
+  def events
+    @events = HTTParty.get("https://api.github.com/users/bookis/events")
+    @events = @events.group_by do |type|
+      type["type"]
+    end
+    render json: @events
+  end
+
 
   def dashboard
   end

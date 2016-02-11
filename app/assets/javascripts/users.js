@@ -43,29 +43,79 @@ $(document).ready(function() {
   });
 
 
+  $.get("/gists", function(gists) {
+      // console.log(gists);
+      for (var i = 0; i < 10; i++) {
+        var gist = $("<div>");
+        var title = $("<h3>");
+        var site = $("<a href>");
+        gist.append(title);
+        gist.append(site);
+        // var name = gists[i]["name"];
+        var url  = gists[i]["html_url"];
+        title.text(url);
+        // site.text(url)
+        // text.link('href', url);
+        // site.write('Your Title'.link(url));
+        // console.log(url)
+        // console.log(name)
+        // console.log(language)
+        $("#gist-container").append(gist);
+      };
+
+
+  });
+
+  $.get("/events", function(events) {
+      console.log(events);
+      var arr = []
+      for (var key in events) {
+        arr.push({name: key, y: events[key].length})
+      };
+
+      console.log(arr);
+
+
+      $("#chart2").highcharts({
+        chart: {
+          type: "bar"
+        },
+        title: {
+          text: "Recent Events"
+        },
+        series: [{
+          name: "Events",
+          data: arr
+        }]
+      });
+
+    });
+
+
+
+
   $.get("/languages", function(languages) {
-    
 
     var arr = []
     for (var key in languages) {
       arr.push({name: key, y: languages[key].length})
     };
+    //
+    // console.log(arr);
 
-    console.log(arr);
 
-
-    $("#chart-container").highcharts({
-      chart: {
-        type: "pie"
-      },
-      title: {
-        text: "Languages Used"
-      },
-      series: [{
-        name: "Languages",
-        data: arr
-      }]
-    });
+      $("#chart-container").highcharts({
+        chart: {
+          type: "pie"
+        },
+        title: {
+          text: "Languages Used"
+        },
+        series: [{
+          name: "Languages",
+          data: arr
+        }]
+      });
 
   });
 

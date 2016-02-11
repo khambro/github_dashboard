@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   get "/dashboard", to: "users#dashboard", as: :dashboard
   get "/repos",     to: "users#repos"
   get "/languages", to: "users#languages"
+  get "/gists",     to: "users#gists"
+  get "/events",     to: "users#events"
 
   # root to: "chart#index"
 
